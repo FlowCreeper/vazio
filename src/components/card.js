@@ -1,74 +1,86 @@
 import { Card, CardActionArea, CardMedia, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import CustomDialog from "./dialog";
 
 export default function CustomCard({ img, title, desc, rarity }) {
-  const [color, setColor] = useState("white")
+  const [color, setColor] = useState("white");
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
-    switch (rarity){
-      case "rare":
-        setColor("gold")
-        break
-      case "legendary":
-        setColor("red")
-        break
+    switch (rarity) {
+      case 1:
+        setColor("gold");
+        break;
+      case 2:
+        setColor("red");
+        break;
       default:
-        setColor("white")
-        break
+        setColor("white");
+        break;
     }
-  }, [rarity])
-  
+  }, [rarity]);
 
   return (
-    <Card 
-      sx={{
-        position: "relative",
-        border: 4,
-        borderColor: color,
-        borderRadius: 6,
-        maxWidth: 300,
-      }}
-    >
-      <CardActionArea>
-        {img && (
-          <CardMedia
-            sx={{ height: 400, width: 300 }}
-            component="img"
-            image={img}
-            alt={title}
-          />
-        )}
-
-        <Typography
-          sx={{
-            position: "absolute",
-            bottom: desc ? 80 : 40, // Adjust bottom if desc is present
-            left: 10,
-            color: "white",
-            WebkitTextStroke: "1px black", // More visible stroke
-            textShadow: "0px 0px 3px rgba(0,0,0,0.7)", // Alternative to stroke
-          }}
-          variant="h5"
-        >
-          {title}
-        </Typography>
-
-        {desc && (
+    <>
+      <Card
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.3)", // Semi-transparent white
+          position: "relative",
+          border: 4,
+          borderColor: color,
+          borderRadius: 5,
+          maxWidth: 300,
+          transition: "box-shadow 0.3s ease-in-out",
+          "&:hover": {
+            boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.3)",
+          },
+        }}
+      >
+        <CardActionArea onClick={handleOpen}>
+          {img ? (
+            <CardMedia
+              sx={{ height: 400, width: 300 }}
+              component="img"
+              image={img}
+              alt={title || "Card image"}
+            />
+          ) : (
+            <Typography sx={{ padding: 2 }} align="center">
+              No Image Available
+            </Typography>
+          )}
           <Typography
             sx={{
               position: "absolute",
-              bottom: 10,
-              left: 10,
+              bottom: 0,
+              left: "50%",
+              transform: "translateX(-50%)",
               color: "white",
-              WebkitTextStroke: "0.5px black",
-              textShadow: "0px 0px 2px rgba(0,0,0,0.7)", // Subtle shadow
+              fontWeight: "bold",
+              WebkitTextStroke: "1px black",
+              background: "rgba(0, 0, 0, 0.5)",
+              padding: "5px 100%",
+              borderRadius: "5px",
             }}
-            variant="body2"
+            align="center"
+            variant="h5"
           >
-            {desc}
+            {title}
           </Typography>
-        )}
-      </CardActionArea>
-    </Card>
+        </CardActionArea>
+      </Card>
+      <CustomDialog
+        open={open}
+        setOpen={setOpen}
+        title={title}
+        desc={desc}
+        img={img}
+        color={color}
+      />
+    </>
   );
 }
