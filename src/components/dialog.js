@@ -25,15 +25,14 @@ export default function CustomDialog({ open, setOpen, title, desc, img, color })
         <DialogTitle id="card-dialog-title">
           {title}
         </DialogTitle>
-        <DialogContent style={{ display: 'flex', alignItems: 'stretch', gap: '16px' }}>
+        <DialogContent style={{ display: 'flex', alignItems: 'stretch', gap: '16px', marginBottom: "3%" }}>
           <img
             src={img}
             alt={title}
             style={{
               border: `5px solid ${color}`, // Combine width, style, and color
               borderRadius: '20px',          // Keep the border rounded
-              width: 'auto',                // Maintain aspect ratio
-              height: 400,               // Fixed height
+              width: "50%",                // Responsive width
               objectFit: 'cover',           // Ensure image covers the given dimensions
               backgroundImage: `url('https://img.freepik.com/premium-photo/japan-anime-scenery-wallpaper-featuring-beautiful-pink-cherry-trees-mount-fuji-background_685067-1795.jpg?w=2000')`, // Correct background syntax
               backgroundSize: 'cover',      // Ensure the background image covers the container
@@ -47,11 +46,6 @@ export default function CustomDialog({ open, setOpen, title, desc, img, color })
             </DialogContentText>
           </Paper>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} autoFocus>
-            Close
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

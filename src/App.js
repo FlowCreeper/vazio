@@ -48,7 +48,8 @@ function App() {
         height: '100vh',               // Full viewport height
         width: '100vw',                // Full viewport width
       }}
-      >
+      position="fixed"
+      />
         <MiniDrawer open={open} setOpen={setOpen} drawerWidth={drawerWidth} />
         <CustomAppBar open={open} drawerWidth={drawerWidth} />
         <Box sx={{ display: "grid", flexGrow: 1, mt: 15, ml: 15 }}>
@@ -58,7 +59,7 @@ function App() {
             ))}
           </Grid>
         </Box>
-      </Box>
+      
     </ThemeProvider>
   );
 }
